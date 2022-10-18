@@ -28,6 +28,8 @@ function solve() {
         editButton.classList.add("action-btn");
         editButton.classList.add('edit');
         editButton.textContent = 'Edit';
+        editButton.addEventListener('click', editPost)
+
 
         let approveBtn = document.createElement('button');
         approveBtn.classList.add("action-btn");
@@ -38,9 +40,7 @@ function solve() {
         li.appendChild(editButton);
         li.appendChild(approveBtn);
 
-        reviewSec.appendChild(li)
-
-
+        reviewSec.appendChild(li);
 
     }
     function createArticle(titleValue, categoryValue, contentValue) {
@@ -61,5 +61,8 @@ function solve() {
 
         return article;
         
+    }
+    function editPost(e) {
+        //TODO
     }
 }   
