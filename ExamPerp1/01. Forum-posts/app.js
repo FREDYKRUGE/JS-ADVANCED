@@ -2,10 +2,15 @@ window.addEventListener("load", solve);
 
 function solve() {
     document.getElementById("publish-btn").addEventListener('click', createPost);
+    document.getElementById('clear-btn').addEventListener('click', clear)
+
     let title = document.getElementById('post-title');
     let category = document.getElementById('post-category');
     let content = document.getElementById('post-content');
     let reviewSec = document.getElementById('review-list');
+    let publishedList = document.getElementById('published-list')
+
+   
 
     function createPost(e) {
         let titleValue = title.value;
@@ -16,7 +21,11 @@ function solve() {
             return;
         }
         createDOMElements(titleValue, categoryValue, contentValue);
-        
+
+        title.value = '';
+        category.value = '';
+        content.value = '';
+
     }
     function createDOMElements(titleValue, categoryValue, contentValue) {
         let li = document.createElement('li');
@@ -35,6 +44,7 @@ function solve() {
         approveBtn.classList.add("action-btn");
         approveBtn.classList.add('approve');
         approveBtn.textContent = 'Approve';
+        approveBtn.addEventListener('click', approvePost)
 
         li.appendChild(article);
         li.appendChild(editButton);
@@ -60,9 +70,31 @@ function solve() {
         article.appendChild(contentP);
 
         return article;
-        
+
     }
     function editPost(e) {
-        //TODO
+        let currentPost = e.target.parentElement;
+        let articleContent = currentPost.getElementsByTagName('article')[0].children;
+
+        let titleValue = articleContent[0].textContent;
+        let categoryValue = articleContent[1].textContent;
+        let contentValue = articleContent[2].textContent;
+
+        title.value = titleValue;
+        category.value = categoryValue.split(': ')[1];
+        content.value = contentValue.split(': ')[1];
+
+        currentPost.remove();
+
+    }
+    function approvePost(e) {
+        let currentPost = e.target.parentElement;
+        publishedList.appendChild(currentPost);
+
+        Array.from(currentPost.querySelectorAll('button')).forEach(btn => btn.remove())
+
+    }
+    function clear(e) {
+        Array.from(publishedList.children).forEach(li => li.remove( ))
     }
 }   
