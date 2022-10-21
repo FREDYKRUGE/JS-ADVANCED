@@ -38,3 +38,5 @@ const companyAdministration = {
     }
 
 }
+
+module.export = companyAdministration 
